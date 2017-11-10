@@ -1,24 +1,30 @@
 #ifndef FRAME_H
 #define FRAME_H
-#include <SFML/Graphics.hpp>
 #include "Observer.h"
 #include "Observable.h"
 #include "Button.h"
-class Frame : sf::RenderWindow, Observable
+#include "Component.h"
+#include <SFML/Graphics.hpp>
+
+class Frame : public sf::RenderWindow, Observable
 {
 public:
     Frame(int x, int y, std::string title);
     ~Frame();
-    bool addComponent(Button& component);
-    bool start();
-
-    virtual bool addObserver(Observer& observer) override;
-    virtual bool removeObserver(const Observer& observer) override;
-    virtual void notifyAll(const sf::Event& event) const override;
+    void addComponent(Button& component);
+    void start();
+    
 
 private:
-    std::vector<Observer* > observers;
-    std::vector<Button* > components;
+    virtual void addObserver(Observer& observer) override;
+    virtual void removeObserver(const Observer& observer) override;
+    virtual void notifyAll(const sf::Event& event) const override;
+    void checkEvent();
+    void updateFrame();
+    void renderFrame();
 
+    std::vector<Observer* > observers;
+    std::vector<Component* > components;
 };
+
 #endif //FRAME_H 

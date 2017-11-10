@@ -10,50 +10,36 @@ Frame::Frame(int x, int y, std::string title)
 Frame::~Frame()
 {}
 
-bool Frame::addComponent(Button& component)
+void Frame::addComponent(Button& component)
 {
     components.push_back(&component);
     addObserver(component);
-    /*(*component.btn);
-    display();*/
-    return false;
 }
-bool Frame::start()
+
+void Frame::start()
 {
     while (isOpen())
     {
-        // три метода // эвент, изменять, рисовать
-        sf::Event event;
-        while (pollEvent(event))
-        {
-            notifyAll(event);
-            if (event.type == sf::Event::Closed)
-            {
-                close();
-            }
-            
-        }
-        //draw
-        for (auto comp : components)
-        {
-            draw(*comp->btn);
-        }
+        checkEvent();
+        // change some
+        updateFrame();
+        // draw
+        renderFrame();
         //display
         display();
     }
     
-    return false;
 }
 
-bool Frame::addObserver(Observer & observer)
+void Frame::addObserver(Observer & observer)
 {
     observers.push_back(&observer);
-    return false;
 }
 
-bool Frame::removeObserver(const Observer & observer)
+void Frame::removeObserver(const Observer & observer)
 {
-    return false;
+    //remove    // delete obs from vector
+
 }
 
 void Frame::notifyAll(const sf::Event & event) const
@@ -64,25 +50,27 @@ void Frame::notifyAll(const sf::Event & event) const
     }
 }
 
-
-
-/*
-bool  Frame::addObserver(const Observer& observer)
+void Frame::checkEvent()
 {
-    observers.push_back(obs);
-}
-
-bool Frame::removeObserver(const Observer & obs)
-{
-    // delete obs from vector
-    return false;
-}
-
-bool Frame::notifyAll(const sf::Event& event) const
-{
-    for (auto obs : observers)
+    sf::Event e;
+    while (pollEvent(e))
     {
-        obs.handleEvent(event);
+        notifyAll(e);
+        if (e.type == sf::Event::Closed)
+        {
+            close();
+        }
     }
 }
-*/
+
+void Frame::updateFrame()
+{
+}
+
+void Frame::renderFrame()
+{
+    for (auto& comp : components)
+    {
+        comp->draw(*this);
+    }
+}
