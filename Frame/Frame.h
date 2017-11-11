@@ -17,7 +17,7 @@ public:
 
 private:
     virtual void addObserver(Observer& observer) override;
-    virtual void removeObserver(const Observer& observer) override;
+    virtual void removeObserver(Observer& observer) override;
     virtual void notifyAll(const sf::Event& event) const override;
     void checkEvent();
     void updateFrame();

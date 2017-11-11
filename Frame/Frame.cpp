@@ -20,12 +20,13 @@ void Frame::start()
 {
     while (isOpen())
     {
+        // event
         checkEvent();
-        // change some
+        // change
         updateFrame();
         // draw
         renderFrame();
-        //display
+        // display
         display();
     }
     
@@ -36,10 +37,18 @@ void Frame::addObserver(Observer & observer)
     observers.push_back(&observer);
 }
 
-void Frame::removeObserver(const Observer & observer)
+void Frame::removeObserver( Observer & observer)
 {
-    //remove    // delete obs from vector
+    std::vector<Observer* >::iterator position = observers.begin();
 
+    for (position = observers.begin(); position != observers.end(); position++) 
+    {
+        if (*position == &observer) 
+        {
+            observers.erase(position);
+            break;
+        }
+    }
 }
 
 void Frame::notifyAll(const sf::Event & event) const
@@ -55,11 +64,11 @@ void Frame::checkEvent()
     sf::Event e;
     while (pollEvent(e))
     {
-        notifyAll(e);
         if (e.type == sf::Event::Closed)
         {
             close();
         }
+        notifyAll(e);
     }
 }
 

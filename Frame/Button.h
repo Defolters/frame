@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 
 class Frame;
+
 class Button : public Component 
 {
 public:
@@ -18,6 +19,7 @@ private:
     sf::RectangleShape* shape;
     sf::Text* label;
     sf::Font* font;
+    //sf::Shape* shape;
 };
 
 #endif // BUTTON_H

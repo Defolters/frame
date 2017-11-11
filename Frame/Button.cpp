@@ -8,11 +8,11 @@ Button::Button(std::string label)
     shape->setFillColor(sf::Color::Blue);
 
     font = new sf::Font;
-    font->loadFromFile("COMIC.TTF");
+    font->loadFromFile("Mashine.otf");
 
     this->label = new sf::Text(label, *font);
     this->label->setFillColor(sf::Color::White);
-    this->label->setCharacterSize(14);
+    this->label->setCharacterSize(16);
 }
 
 Button::~Button()
@@ -22,7 +22,9 @@ Button::~Button()
 void Button::setPos(int x, int y)
 {
     shape->setPosition(x, y);
-    label->setPosition(x, y);
+    float a = x + shape->getSize().x / 2 - label->getGlobalBounds().width/2;
+    float b = y + shape->getSize().y / 2 - label->getGlobalBounds().height/2;
+    label->setPosition(a, b);
 }
 
 void Button::draw(Frame& frame)
@@ -33,15 +35,21 @@ void Button::draw(Frame& frame)
 
 void Button::handleEvent(const sf::Event & event)
 {
-    if ((event.type == sf::Event::MouseButtonPressed) & (event.mouseButton.button == sf::Mouse::Left))
+    
+    if ((event.type == sf::Event::MouseButtonReleased) && (event.mouseButton.button == sf::Mouse::Left))
     {
-            if ((event.mouseButton.x > shape->getPosition().x) && event.mouseButton.x < shape->getPosition().x + shape->getSize().x)
+        shape->setFillColor(sf::Color::Blue);
+    }
+
+    if ((event.type == sf::Event::MouseButtonPressed) && (event.mouseButton.button == sf::Mouse::Left))
+    {
+            if ((event.mouseButton.x > shape->getPosition().x) && 
+                (event.mouseButton.x < shape->getPosition().x + shape->getSize().x) && 
+                (event.mouseButton.y > shape->getPosition().y) && 
+                (event.mouseButton.y < shape->getPosition().y + shape->getSize().y))
             {
-                if (event.mouseButton.y > shape->getPosition().y && event.mouseButton.y < shape->getPosition().y + shape->getSize().y)
-                {
-                    std::cout << "Button pressed" << std::endl;
-                    shape->setFillColor(sf::Color::Green);
-                }
+                std::cout << "Button pressed" << std::endl;
+                shape->setFillColor(sf::Color::Red);
             }
     }
 }
