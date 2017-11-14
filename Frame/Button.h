@@ -11,7 +11,7 @@ class Button : public Component
 public:
     Button(std::string label);
     ~Button();
-    void setPos(int x, int y);
+    virtual void setPos(int x, int y) override;
     virtual void draw(Frame& frame) override;
 
 private:

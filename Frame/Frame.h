@@ -11,7 +11,7 @@ class Frame : public sf::RenderWindow, Observable
 public:
     Frame(int x, int y, std::string title);
     ~Frame();
-    void addComponent(Button& component);
+    void addComponent(Component& component);
     void start();
     
 

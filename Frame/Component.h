@@ -7,6 +7,7 @@ class Frame;
 class Component : public Observer
 {
 public:
+    virtual void setPos(int x, int y) = 0;
     virtual void draw(Frame& frame) = 0;
 };
 

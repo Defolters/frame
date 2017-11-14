@@ -10,7 +10,7 @@ Frame::Frame(int x, int y, std::string title)
 Frame::~Frame()
 {}
 
-void Frame::addComponent(Button& component)
+void Frame::addComponent(Component& component)
 {
     components.push_back(&component);
     addObserver(component);
