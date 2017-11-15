@@ -2,7 +2,7 @@
 #define FRAME_H
 #include "Observer.h"
 #include "Observable.h"
-#include "Button.h"
+
 #include "Component.h"
 #include <SFML/Graphics.hpp>
 

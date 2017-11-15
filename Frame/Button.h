@@ -1,7 +1,7 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 #include "Component.h"
-//#include "Frame.h" // Ask teacher
+#include "Frame.h" // Ask teacher
 #include <SFML/Graphics.hpp>
 
 class Frame;
